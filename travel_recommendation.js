@@ -28,8 +28,11 @@ async function searchCondition() {
         results = data.beaches;
     } else if (input === 'temple' || input === 'temples') {
         results = data.temples;
+    } else if (input === 'country' || input === 'countries') {
+        // Thêm logic cho từ khóa "country" - lấy tất cả cities từ tất cả countries
+        results = data.countries.flatMap(country => country.cities);
     } else {
-        // Tìm kiếm theo quốc gia
+        // Tìm kiếm theo quốc gia cụ thể
         const country = data.countries.find(c => c.name.toLowerCase() === input);
         if (country) {
             results = country.cities;
@@ -39,7 +42,7 @@ async function searchCondition() {
     if (results.length > 0) {
         displayResults(results);
     } else {
-        resultContainer.innerHTML = '<p>No results found. Try "beach", "temple", or a country name.</p>';
+        resultContainer.innerHTML = '<p>No results found. Try "beach", "temple", "country", or a specific country name like "Australia".</p>';
     }
 }
 
